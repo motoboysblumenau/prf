@@ -1151,7 +1151,7 @@
 <!-- ===== BREADCRUMB ===== -->
 <div class="breadcrumb">
   <div class="container" id="breadcrumb-text">
-    <a href="#">gov.br</a> <span>›</span>
+    <a href="#">PRF</a> <span>›</span>
     <a href="#">Polícia Rodoviária Federal</a> <span>›</span>
     Página Inicial
   </div>
@@ -2323,7 +2323,7 @@
     <div class="footer-col">
       <h4>Links Úteis</h4>
       <ul>
-        <li><a href="https://www.gov.br" target="_blank">gov.br</a></li>
+        <li><span>Governo Federal</span></li>
         <li><a href="#" onclick="openAcesso()">Acesso à Informação</a></li>
         <li><a href="#" onclick="openLeg()">Legislação</a></li>
         <li><a href="#" onclick="showLogin()">Área Restrita</a></li>
@@ -2332,10 +2332,6 @@
   </div>
   <div class="footer-bottom">
     <p>© 2024 Polícia Rodoviária Federal — Todos os direitos reservados</p>
-    <div class="footer-govbr">
-      <span class="govbr-logo">gov<span style="color:rgba(255,255,255,0.5);font-weight:400">.br</span></span>
-      <span>Portal do Governo Brasileiro</span>
-    </div>
   </div>
 </footer>
 
@@ -2344,40 +2340,33 @@
   <div class="login-modal">
     <div class="modal-header">
       <div class="modal-header-brand">
-        <span class="govbr-logo">gov<span>.br</span></span>
         <div>
-          <div style="color:white;font-weight:700;font-size:14px;">Entrar com gov.br</div>
-          <h3>Acesso Seguro ao Portal PRF</h3>
+          <div style="color:white;font-weight:700;font-size:14px;">Entrar na área restrita</div>
+          <h3>Acesso seguro ao portal PRF</h3>
         </div>
       </div>
       <button class="modal-close" onclick="closeLogin()">✕</button>
     </div>
     <div class="modal-body">
-      <p class="intro">Use seu CPF e senha cadastrados no <strong>gov.br</strong> para acessar a área restrita da Polícia Rodoviária Federal.</p>
+      <p class="intro">Use seu CPF e senha para acessar a área restrita da Polícia Rodoviária Federal.</p>
       <div class="form-group">
         <label>CPF</label>
         <input type="text" placeholder="000.000.000-00" id="cpf-input" oninput="maskCPF(this)">
       </div>
       <div class="form-group">
-        <label>Senha gov.br</label>
+        <label>Senha</label>
         <input type="password" placeholder="Digite sua senha" id="senha-input">
       </div>
       <button class="btn-govbr" onclick="doLogin()">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
-        Entrar com gov.br
+        Entrar
       </button>
-      <div class="modal-divider">ou acesse com</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-        <button style="background:#f0f2f5;border:1.5px solid #ddd;border-radius:6px;padding:10px;font-size:12.5px;font-weight:600;cursor:pointer;color:#333;font-family:inherit;" onclick="showToast('🔑 Redirecionando para certificado digital...')">🪪 Certificado Digital</button>
-        <button style="background:#f0f2f5;border:1.5px solid #ddd;border-radius:6px;padding:10px;font-size:12.5px;font-weight:600;cursor:pointer;color:#333;font-family:inherit;" onclick="showToast('📱 QR Code enviado para o seu celular')">📱 QR Code</button>
-      </div>
       <div class="modal-links">
         <a href="#">Esqueci minha senha</a>
-        <a href="https://acesso.gov.br" target="_blank">Criar conta gov.br</a>
       </div>
     </div>
     <div class="modal-footer">
-      Acesso seguro provido pelo <a href="https://www.gov.br" target="_blank">Portal gov.br</a> — Governo Federal do Brasil
+      Acesso seguro à área restrita da Polícia Rodoviária Federal.
     </div>
   </div>
 </div>
@@ -2387,7 +2376,7 @@
   function showHome() {
     document.getElementById('home-page').style.display = 'block';
     document.querySelectorAll('.subpage').forEach(p => p.classList.remove('active'));
-    document.getElementById('breadcrumb-text').innerHTML = '<a href="#">gov.br</a> <span>›</span> <a href="#">Polícia Rodoviária Federal</a> <span>›</span> Página Inicial';
+    document.getElementById('breadcrumb-text').innerHTML = '<a href="#">PRF</a> <span>›</span> <a href="#">Polícia Rodoviária Federal</a> <span>›</span> Página Inicial';
     setActiveNav('nav-home');
     window.scrollTo({top: 0, behavior: 'smooth'});
   }
@@ -2408,7 +2397,7 @@
       'legislacao': 'Legislação'
     };
     document.getElementById('breadcrumb-text').innerHTML =
-      '<a href="#">gov.br</a> <span>›</span> <a href="#" onclick="showHome()">PRF</a> <span>›</span> ' + (labels[id] || id);
+      '<a href="#">PRF</a> <span>›</span> <a href="#" onclick="showHome()">PRF</a> <span>›</span> ' + (labels[id] || id);
     window.scrollTo({top: 0, behavior: 'smooth'});
   }
 
@@ -2873,7 +2862,7 @@
     document.querySelectorAll('.subpage').forEach(p => p.classList.remove('active'));
     document.getElementById('page-restricted').classList.add('active');
     document.getElementById('breadcrumb-text').innerHTML =
-      '<a href="#">gov.br</a> <span>›</span> <a href="#" onclick="showHome()">PRF</a> <span>›</span> Área Restrita';
+      '<a href="#">PRF</a> <span>›</span> <a href="#" onclick="showHome()">PRF</a> <span>›</span> Área Restrita';
     window.scrollTo({top: 0, behavior: 'smooth'});
     carregarBoletinsAoEntrar();
   }
