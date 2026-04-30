@@ -1,0 +1,2944 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PRF - Polícia Rodoviária Federal</title>
+<link rel="icon" href="prf.png" type="image/png">
+<link rel="shortcut icon" href="prf.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Rawline:wght@400;500;600;700&family=Raleway:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gov-yellow: #FFCD07;
+    --gov-blue: #071D41;
+    --gov-green: #168821;
+    --gov-gray: #F8F8F8;
+    --prf-blue: #003580;
+    --prf-blue-dark: #001f4d;
+    --prf-blue-mid: #0050b3;
+    --prf-accent: #1351B4;
+    --prf-light: #E8F0FC;
+    --text-dark: #1c1c1e;
+    --text-mid: #333;
+    --border: #ddd;
+    --white: #fff;
+  }
+
+  body {
+    font-family: 'Rawline', sans-serif;
+    background: #f0f2f5;
+    color: var(--text-dark);
+  }
+
+
+
+  /* ===== HEADER PRF ===== */
+  .prf-header {
+    background: var(--prf-blue-dark);
+    padding: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+  .prf-header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .prf-brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .prf-logo-shield {
+    width: 62px;
+    height: 62px;
+    flex-shrink: 0;
+  }
+  .prf-title-group h1 {
+    font-family: 'Raleway', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: white;
+    line-height: 1.15;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .prf-title-group h1 span {
+    color: var(--gov-yellow);
+  }
+  .prf-title-group p {
+    font-size: 11px;
+    color: rgba(255,255,255,0.65);
+    margin-top: 2px;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+  }
+  .prf-header-search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .search-box {
+    display: flex;
+    align-items: center;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .search-box input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    padding: 7px 12px;
+    font-size: 13px;
+    width: 200px;
+    font-family: inherit;
+  }
+  .search-box input::placeholder { color: rgba(255,255,255,0.5); }
+  .search-box button {
+    background: var(--prf-accent);
+    border: none;
+    color: white;
+    padding: 7px 12px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: background 0.2s;
+  }
+  .search-box button:hover { background: #0660d4; }
+
+  /* ===== NAV MENU ===== */
+  .nav-menu {
+    background: var(--prf-blue);
+    border-bottom: 3px solid var(--gov-yellow);
+  }
+  .nav-menu .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    overflow-x: auto;
+  }
+  .nav-menu a {
+    color: rgba(255,255,255,0.88);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 12px 16px;
+    white-space: nowrap;
+    transition: all 0.2s;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -3px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .nav-menu a:hover {
+    color: white;
+    background: rgba(255,255,255,0.08);
+    border-bottom-color: var(--gov-yellow);
+  }
+  .nav-menu a.active {
+    color: var(--gov-yellow);
+    border-bottom-color: var(--gov-yellow);
+  }
+
+  /* ===== BREADCRUMB ===== */
+  .breadcrumb {
+    background: white;
+    border-bottom: 1px solid var(--border);
+    padding: 8px 0;
+  }
+  .breadcrumb .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 16px;
+    font-size: 12px;
+    color: #666;
+  }
+  .breadcrumb a { color: var(--prf-accent); text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .breadcrumb span { color: #999; margin: 0 6px; }
+
+  /* ===== MAIN ===== */
+  main {
+    max-width: 1200px;
+    margin: 28px auto;
+    padding: 0 16px;
+  }
+
+  /* ===== HERO BANNER ===== */
+  .hero-banner {
+    background: linear-gradient(135deg, var(--prf-blue-dark) 0%, var(--prf-blue) 60%, var(--prf-blue-mid) 100%);
+    border-radius: 12px;
+    padding: 36px 40px;
+    margin-bottom: 32px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .hero-banner::before {
+    content: '';
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 260px; height: 260px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 50%;
+  }
+  .hero-banner::after {
+    content: '';
+    position: absolute;
+    right: 60px; bottom: -60px;
+    width: 180px; height: 180px;
+    background: rgba(255,205,7,0.07);
+    border-radius: 50%;
+  }
+  .hero-text h2 {
+    font-family: 'Raleway', sans-serif;
+    font-size: 26px;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+  .hero-text h2 em {
+    color: var(--gov-yellow);
+    font-style: normal;
+  }
+  .hero-text p {
+    color: rgba(255,255,255,0.75);
+    font-size: 14px;
+    max-width: 480px;
+    line-height: 1.6;
+  }
+  .hero-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+    z-index: 1;
+  }
+  .hero-badge svg {
+    width: 80px;
+    height: 80px;
+    opacity: 0.9;
+  }
+  .hero-badge span {
+    color: rgba(255,255,255,0.6);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* ===== SECTION TITLE ===== */
+  .section-title {
+    font-family: 'Raleway', sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--prf-blue-dark);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(90deg, var(--prf-blue), transparent);
+    opacity: 0.2;
+  }
+  .section-title .line-accent {
+    width: 4px;
+    height: 22px;
+    background: var(--gov-yellow);
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  /* ===== PAINEL DE NOTÍCIAS ===== */
+  .news-panel {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    margin-bottom: 32px;
+    overflow: hidden;
+    position: relative;
+    max-width: 770px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .news-slider {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 770 / 300;
+    overflow: hidden;
+  }
+
+  .news-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .news-slide.active {
+    opacity: 1;
+  }
+
+  .news-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .news-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    background: white;
+    border-top: 1px solid #f0f0f0;
+  }
+
+  .news-btn {
+    background: var(--prf-blue);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+
+  .news-btn:hover {
+    background: var(--prf-blue-dark);
+    transform: scale(1.05);
+  }
+
+  .news-dots {
+    display: flex;
+    gap: 8px;
+  }
+
+  .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ddd;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  .dot.active {
+    background: var(--prf-blue);
+  }
+
+  /* ===== ÁREA RESTRITA ===== */
+  .restricted-header {
+    background: var(--prf-blue-dark);
+    color: white;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .user-avatar {
+    width: 60px;
+    height: 60px;
+    background: var(--prf-blue);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+
+  .user-details h2 {
+    margin: 0;
+    font-size: 18px;
+  }
+
+  .user-details p {
+    margin: 4px 0;
+    opacity: 0.8;
+    font-size: 14px;
+  }
+
+  .user-status {
+    font-size: 12px;
+    padding: 2px 8px;
+    border-radius: 12px;
+    background: #28a745;
+    color: white;
+  }
+
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+
+  .dashboard-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  }
+
+  .dashboard-card h3 {
+    margin: 0 0 20px 0;
+    color: var(--prf-blue-dark);
+    font-size: 18px;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .stat-item {
+    text-align: center;
+    padding: 16px;
+    background: #f8f9fa;
+    border-radius: 8px;
+  }
+
+  .stat-number {
+    font-size: 32px;
+    font-weight: bold;
+    color: var(--prf-blue);
+    display: block;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: #666;
+    margin-top: 4px;
+  }
+
+  .multas-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .veiculos-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .veiculo-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    background: #f8f9fa;
+    border-radius: 8px;
+  }
+
+  .status {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .status.apreendido {
+    background: #dc3545;
+    color: white;
+  }
+
+  .status.liberado {
+    background: #28a745;
+    color: white;
+  }
+
+  .btn-small {
+    padding: 6px 12px;
+    background: var(--prf-blue);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+  }
+
+  .btn-small.disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+
+  .chat-messages {
+    max-height: 200px;
+    overflow-y: auto;
+    margin-bottom: 16px;
+    padding: 12px;
+    background: #f8f9fa;
+    border-radius: 8px;
+  }
+
+  .message {
+    margin-bottom: 8px;
+    padding: 8px;
+    background: white;
+    border-radius: 6px;
+    font-size: 14px;
+  }
+
+  .chat-input {
+    display: flex;
+    gap: 8px;
+  }
+
+  .chat-input input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+  }
+
+  .chat-input button {
+    padding: 8px 16px;
+    background: var(--prf-blue);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .relatorios-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .relatorio-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    background: #f8f9fa;
+    border-radius: 8px;
+  }
+
+  .relatorio-info small {
+    color: #666;
+    display: block;
+  }
+
+  .map-placeholder {
+    height: 200px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    position: relative;
+    margin-bottom: 16px;
+  }
+
+  .map-point {
+    position: absolute;
+    background: var(--prf-blue);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+  }
+
+  /* ===== BOTÕES DE SERVIÇOS (estilo do site original) ===== */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .service-btn {
+    background: white;
+    border: none;
+    border-radius: 10px;
+    padding: 28px 16px 22px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--text-dark);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    transition: all 0.25s ease;
+    border-top: 4px solid var(--prf-blue);
+    position: relative;
+    overflow: hidden;
+  }
+  .service-btn::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--gov-yellow);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+    transform-origin: left;
+  }
+  .service-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,53,128,0.18);
+    border-top-color: var(--prf-accent);
+  }
+  .service-btn:hover::before {
+    transform: scaleX(1);
+  }
+  .service-btn .icon-wrap {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--prf-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.25s;
+    flex-shrink: 0;
+  }
+  .service-btn:hover .icon-wrap {
+    background: var(--prf-blue);
+  }
+  .service-btn:hover .icon-wrap svg {
+    color: white;
+  }
+  .service-btn .icon-wrap svg {
+    width: 28px;
+    height: 28px;
+    color: var(--prf-blue);
+    transition: color 0.25s;
+  }
+  .service-btn .btn-label {
+    font-size: 13.5px;
+    font-weight: 700;
+    text-align: center;
+    color: var(--prf-blue-dark);
+    line-height: 1.3;
+    transition: color 0.25s;
+  }
+  .service-btn:hover .btn-label {
+    color: var(--prf-accent);
+  }
+  .service-btn .btn-desc {
+    font-size: 11px;
+    color: #888;
+    text-align: center;
+    line-height: 1.4;
+    margin-top: -4px;
+  }
+
+  /* Cor especial para denúncia */
+  .service-btn.alert-btn {
+    border-top-color: #c0392b;
+  }
+  .service-btn.alert-btn .icon-wrap {
+    background: #fdecea;
+  }
+  .service-btn.alert-btn .icon-wrap svg {
+    color: #c0392b;
+  }
+  .service-btn.alert-btn:hover {
+    border-top-color: #c0392b;
+  }
+  .service-btn.alert-btn:hover .icon-wrap {
+    background: #c0392b;
+  }
+
+  /* ===== LOGIN GOV.BR ===== */
+  .login-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    backdrop-filter: blur(3px);
+    animation: fadeIn 0.2s ease;
+  }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  .login-modal {
+    background: white;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 440px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    animation: slideUp 0.25s ease;
+  }
+  @keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+  .modal-header {
+    background: var(--prf-blue-dark);
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .modal-header-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .modal-header-brand .govbr-logo {
+    font-size: 22px;
+  }
+  .modal-header h3 {
+    color: rgba(255,255,255,0.7);
+    font-size: 12px;
+    font-weight: 400;
+    margin-top: 2px;
+  }
+  .modal-close {
+    background: rgba(255,255,255,0.15);
+    border: none;
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+  }
+  .modal-close:hover { background: rgba(255,255,255,0.3); }
+  .modal-body { padding: 28px 24px 24px; }
+  .modal-body p.intro {
+    font-size: 13.5px;
+    color: #555;
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+  .form-group { margin-bottom: 16px; }
+  .form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 6px;
+  }
+  .form-group input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: inherit;
+    transition: border-color 0.2s;
+    outline: none;
+    color: var(--text-dark);
+  }
+  .form-group input:focus { border-color: var(--prf-accent); box-shadow: 0 0 0 3px rgba(19,81,180,0.12); }
+
+  .btn-govbr {
+    width: 100%;
+    background: var(--prf-accent);
+    border: none;
+    color: white;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.2s;
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .btn-govbr:hover { background: #0d41a0; }
+
+  .modal-divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 16px 0;
+    color: #bbb;
+    font-size: 12px;
+  }
+  .modal-divider::before, .modal-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #eee;
+  }
+
+  .modal-links {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+    font-size: 12px;
+  }
+  .modal-links a { color: var(--prf-accent); text-decoration: none; }
+  .modal-links a:hover { text-decoration: underline; }
+
+  .modal-footer {
+    background: #f7f8fa;
+    border-top: 1px solid #eee;
+    padding: 12px 24px;
+    text-align: center;
+    font-size: 11px;
+    color: #999;
+  }
+  .modal-footer a { color: var(--prf-accent); text-decoration: none; }
+
+  /* ===== SUBPAGE (páginas internas simuladas) ===== */
+  .subpage {
+    display: none;
+    background: white;
+    border-radius: 12px;
+    padding: 32px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+    margin-bottom: 32px;
+  }
+  .subpage.active { display: block; animation: fadeIn 0.3s ease; }
+  .subpage h2 {
+    font-family: 'Raleway', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--prf-blue-dark);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .subpage h2 svg {
+    width: 26px;
+    height: 26px;
+    color: var(--prf-accent);
+  }
+  .subpage .sub-divider {
+    height: 3px;
+    background: linear-gradient(90deg, var(--prf-blue), transparent);
+    border-radius: 2px;
+    margin: 10px 0 20px;
+    width: 100px;
+  }
+  .subpage p {
+    color: #444;
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 14px;
+  }
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--prf-accent);
+    background: none;
+    border: 1.5px solid var(--prf-accent);
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s;
+    margin-top: 12px;
+    text-decoration: none;
+  }
+  .back-btn:hover { background: var(--prf-accent); color: white; }
+
+  .form-card {
+    background: var(--prf-light);
+    border-radius: 10px;
+    padding: 24px;
+    margin-top: 20px;
+    border: 1px solid rgba(0,53,128,0.12);
+  }
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  .form-row.full { grid-template-columns: 1fr; }
+  textarea.form-input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid #cdd6e8;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: inherit;
+    resize: vertical;
+    min-height: 100px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  textarea.form-input:focus { border-color: var(--prf-accent); }
+  input.form-input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid #cdd6e8;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  input.form-input:focus { border-color: var(--prf-accent); }
+  label.form-label {
+    display: block;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--prf-blue-dark);
+    margin-bottom: 5px;
+  }
+  .submit-btn {
+    background: var(--prf-blue);
+    color: white;
+    border: none;
+    padding: 11px 28px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .submit-btn:hover { background: var(--prf-accent); }
+
+  /* Regimento - PDF embed simulado */
+  .pdf-viewer {
+    background: #f0f0f0;
+    border-radius: 8px;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 12px;
+    color: #888;
+    border: 2px dashed #ccc;
+    font-size: 14px;
+  }
+  .pdf-viewer svg { width: 48px; height: 48px; color: #ccc; }
+  .pdf-viewer .pdf-btn {
+    background: var(--prf-blue);
+    color: white;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* FAQ / Como fazer parte */
+  .faq-item {
+    border: 1px solid #e0e8f8;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+  .faq-q {
+    background: var(--prf-light);
+    padding: 14px 18px;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--prf-blue-dark);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background 0.2s;
+  }
+  .faq-q:hover { background: #d6e4f7; }
+  .faq-a {
+    padding: 14px 18px;
+    font-size: 13.5px;
+    color: #444;
+    line-height: 1.65;
+    display: none;
+    border-top: 1px solid #e0e8f8;
+  }
+  .faq-item.open .faq-a { display: block; }
+  .faq-item.open .faq-q { background: #d0ddf5; }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--prf-blue-dark);
+    color: white;
+    margin-top: 48px;
+    padding: 32px 0 16px;
+  }
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 16px;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 32px;
+    margin-bottom: 24px;
+  }
+  .footer-brand {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .footer-brand svg { flex-shrink: 0; margin-top: 4px; }
+  .footer-title {
+    font-family: 'Raleway', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--gov-yellow);
+    text-transform: uppercase;
+  }
+  .footer-sub {
+    font-size: 12px;
+    color: rgba(255,255,255,0.55);
+    margin-top: 4px;
+    line-height: 1.5;
+  }
+  .footer-col h4 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--gov-yellow);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 6px; }
+  .footer-col ul li a {
+    color: rgba(255,255,255,0.65);
+    text-decoration: none;
+    font-size: 13px;
+    transition: color 0.2s;
+  }
+  .footer-col ul li a:hover { color: white; }
+  .footer-bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px 16px 0;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .footer-bottom p { font-size: 11.5px; color: rgba(255,255,255,0.4); }
+  .footer-govbr {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+  }
+  .footer-govbr .govbr-logo { font-size: 15px; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .prf-header-inner { flex-wrap: wrap; }
+    .prf-header-search { display: none; }
+    .hero-banner { flex-direction: column; text-align: center; padding: 24px 20px; }
+    .hero-badge { display: none; }
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+    .footer-inner { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 480px) {
+    .services-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .service-btn { padding: 20px 10px 16px; }
+    .service-btn .icon-wrap { width: 50px; height: 50px; }
+    .service-btn .btn-label { font-size: 12px; }
+  }
+
+  /* Notificação de sucesso */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: #168821;
+    color: white;
+    padding: 14px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    z-index: 2000;
+    animation: slideInRight 0.3s ease, fadeOut 0.4s ease 2.5s forwards;
+  }
+  @keyframes slideInRight { from { transform: translateX(60px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  @keyframes fadeOut { to { opacity: 0; transform: translateX(30px); } }
+
+  .home-page { display: block; }
+  .hidden { display: none; }
+</style>
+</head>
+<body>
+
+
+
+<!-- ===== HEADER PRF ===== -->
+<header class="prf-header">
+  <div class="prf-header-inner">
+    <div class="prf-brand">
+      <!-- Logo PRF -->
+      <img class="prf-logo-shield" src="prf.png" alt="Logo PRF">
+      <div class="prf-title-group">
+        <h1>Polícia Rodoviária <span>Federal</span></h1>
+        <p>Ministério da Justiça e Segurança Pública | Realidade Paulista</p>
+      </div>
+    </div>
+    <div class="prf-header-search">
+      <div class="search-box">
+        <input type="text" placeholder="Buscar no site...">
+        <button>🔍</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+
+<!-- ===== BREADCRUMB ===== -->
+<div class="breadcrumb">
+  <div class="container" id="breadcrumb-text">
+    <a href="#">gov.br</a> <span>›</span>
+    <a href="#">Polícia Rodoviária Federal</a> <span>›</span>
+    Página Inicial
+  </div>
+</div>
+
+<!-- ===== MAIN CONTENT ===== -->
+<main>
+
+  <!-- HOME PAGE -->
+  <div class="home-page" id="home-page">
+    <!-- Aviso de Ficção -->
+    <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 14px 18px; margin-bottom: 24px; border-radius: 6px; color: #856404;">
+      <strong>⚠️ Aviso:</strong> Este é um site de ficção para GTA 5 Online. Não é oficial e não tem relação com a Polícia Rodoviária Federal real.
+    </div>
+
+    <!-- PAINEL DE NOTÍCIAS -->
+    <div class="news-panel">
+      <div class="news-slider" id="news-slider">
+        <div class="news-slide active">
+          <img src="noticia1.png" alt="Notícia 1" class="news-image">
+        </div>
+        <div class="news-slide">
+          <img src="noticia2.png" alt="Notícia 2" class="news-image">
+        </div>
+        <div class="news-slide">
+          <img src="noticia3.png" alt="Notícia 3" class="news-image">
+        </div>
+      </div>
+      <div class="news-nav">
+        <button class="news-btn prev" onclick="prevNews()">‹</button>
+        <div class="news-dots">
+          <span class="dot active" onclick="goToNews(0)"></span>
+          <span class="dot" onclick="goToNews(1)"></span>
+          <span class="dot" onclick="goToNews(2)"></span>
+        </div>
+        <button class="news-btn next" onclick="nextNews()">›</button>
+      </div>
+    </div>
+
+    <!-- Botões de Serviços -->
+    <div class="section-title">
+      <div class="line-accent"></div>
+      Serviços
+    </div>
+
+    <div class="services-grid">
+
+      <!-- Boletim de Ocorrência -->
+      <a class="service-btn alert-btn" href="#" onclick="showPage('denuncia'); return false;">
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+            <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+        </div>
+        <span class="btn-label">Boletim de Ocorrência</span>
+        <span class="btn-desc">Registre ocorrências</span>
+      </a>
+
+      <!-- Regimento PRF -->
+      <a class="service-btn" href="regimento.html">
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
+          </svg>
+        </div>
+        <span class="btn-label">Regimento PRF</span>
+        <span class="btn-desc">Normas e regulamentos</span>
+      </a>
+
+      <!-- Como Fazer Parte -->
+      <a class="service-btn" href="#" onclick="showPage('como-fazer-parte'); return false;">
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/>
+          </svg>
+        </div>
+        <span class="btn-label">Como Fazer Parte</span>
+        <span class="btn-desc">Concursos e ingresso</span>
+      </a>
+
+      <!-- Sugestões -->
+      <a class="service-btn" href="#" onclick="showPage('sugestoes'); return false;">
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+          </svg>
+        </div>
+        <span class="btn-label">Sugestões</span>
+        <span class="btn-desc">Envie sua opinião</span>
+      </a>
+
+      <!-- Acesso à Informação -->
+      <a class="service-btn" href="#" onclick="openAcesso(); return false;">
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+        </div>
+        <span class="btn-label">Acesso à Informação</span>
+        <span class="btn-desc">Transparência pública</span>
+      </a>
+
+      <!-- Legislação -->
+      <a class="service-btn" href="#" onclick="openLeg(); return false;">
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
+          </svg>
+        </div>
+        <span class="btn-label">Legislação</span>
+        <span class="btn-desc">Leis e decretos</span>
+      </a>
+
+      <!-- Área Restrita -->
+      <a class="service-btn" href="#" onclick="showLogin(); return false;">
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <circle cx="12" cy="16" r="1"/>
+            <path d="M7 11V7a5 5 0 0110 0v4"/>
+          </svg>
+        </div>
+        <span class="btn-label">Área Restrita</span>
+        <span class="btn-desc">Acesso PRF</span>
+      </a>
+
+      <!-- Mapa da PRF -->
+      <a class="service-btn" href="#" onclick="showPage('mapa-prf'); return false;">
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+        </div>
+        <span class="btn-label">Mapa da PRF</span>
+        <span class="btn-desc">Localização bases</span>
+      </a>
+
+      <!-- UNIPRF -->
+      <a class="service-btn" href="#" onclick="showPage('uniprf'); return false;">
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+            <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+          </svg>
+        </div>
+        <span class="btn-label">UNIPRF</span>
+        <span class="btn-desc">Cursos e capacitação</span>
+      </a>
+
+    </div>
+
+
+    </div>
+  </div>
+
+  <!-- ===== PÁGINA: BOLETIM DE OCORRÊNCIA ===== -->
+  <div class="subpage" id="page-denuncia">
+    <h2>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      Boletim de Ocorrência
+    </h2>
+    <div class="sub-divider"></div>
+    <p>Registre ocorrências relacionadas às rodovias federais. O boletim será gerado automaticamente com os dados informados e poderá ser impresso ou salvo.</p>
+    
+    <div style="background: #e8f4f8; padding: 16px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #0050b3;">
+      <strong>📞 Outras Formas de Registrar:</strong><br>
+      • <strong>Disque-PR F:</strong> 191 (24h/7 dias)<br>
+      • <strong>WhatsApp:</strong> (00) 0000-0000<br>
+      • <strong>Presencialmente:</strong> Visite uma delegacia PRF mais próxima
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        🔒 Confidencialidade e Proteção
+        <span>▼</span>
+      </div>
+      <div class="faq-a">
+        Todas as ocorrências são registradas de forma confidencial. Você pode manter sua identidade em sigilo se desejar. A PRF garante que denunciantes legítimos terão sua privacidade protegida.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        ⚖️ Tipos de Ocorrência
+        <span>▼</span>
+      </div>
+      <div class="faq-a">
+        • Acidentes de trânsito<br>
+        • Crimes na rodovia (assaltos, sequestros, homicídios)<br>
+        • Tráfico de drogas e contrabando<br>
+        • Condutores imprudentes ou alcoolizados<br>
+        • Irregularidades no transporte de carga<br>
+        • Desvios de conduta de servidores<br>
+        • Abandono de animais<br>
+        • Outros crimes e contravenções
+      </div>
+    </div>
+
+    <div class="form-card">
+      <h3 style="color: var(--prf-blue-dark); margin-bottom: 16px; font-size: 16px;">📝 Registrar Ocorrência</h3>
+      <div class="form-row">
+        <div>
+          <label class="form-label">Tipo de Ocorrência *</label>
+          <select class="form-input" id="bo-tipo" style="width:100%; padding:10px 14px; border:1.5px solid #cdd6e8; border-radius:6px; font-size:14px; font-family:inherit; background:white; outline:none;">
+            <option value="">Selecione o tipo</option>
+            <option>Acidente de Trânsito</option>
+            <option>Crime na Rodovia</option>
+            <option>Tráfico de Drogas</option>
+            <option>Desvio de Conduta</option>
+            <option>Irregularidade de Carga</option>
+            <option>Trânsito Perigoso</option>
+            <option>Outros</option>
+          </select>
+        </div>
+        <div>
+          <label class="form-label">Rodovia / Local *</label>
+          <input type="text" class="form-input" id="bo-local" placeholder="Ex: BR-101, km 234">
+        </div>
+      </div>
+      <div class="form-row">
+        <div>
+          <label class="form-label">Data/Hora do Ocorrido</label>
+          <input type="datetime-local" class="form-input" id="bo-datahora">
+        </div>
+        <div>
+          <label class="form-label">Estado/Cidade</label>
+          <input type="text" class="form-input" id="bo-cidade" placeholder="Ex: São Paulo, SP">
+        </div>
+      </div>
+      <div class="form-row full">
+        <div>
+          <label class="form-label">Descrição Detalhada *</label>
+          <textarea class="form-input" id="bo-descricao" placeholder="Descreva o ocorrido com o máximo de detalhes possível. Inclua informações sobre veículos, pessoas envolvidas, etc..."></textarea>
+        </div>
+      </div>
+      <div class="form-row">
+        <div>
+          <label class="form-label">Seu Nome (opcional)</label>
+          <input type="text" class="form-input" id="bo-nome" placeholder="Deixe em branco se preferir anonimato">
+        </div>
+        <div id="bo-email-group">
+          <label class="form-label">E-mail (opcional)</label>
+          <input type="email" class="form-input" id="bo-email" placeholder="seu@email.com">
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">
+        <input type="checkbox" id="bo-anon" style="width:16px;height:16px;cursor:pointer;" checked onchange="toggleAnonimoBoletim()">
+        <label for="bo-anon" style="font-size:13px;color:#555;cursor:pointer;">Desejo manter minha identidade em sigilo</label>
+      </div>
+      <button class="submit-btn" onclick="registrarBoletim()" style="width:100%;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 2 11 13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        Registrar Boletim
+      </button>
+    </div>
+    <button class="back-btn" onclick="showHome()">← Voltar ao Início</button>
+  </div>
+
+  <!-- ===== PÁGINA: REGIMENTO PRF ===== -->
+  <div class="subpage" id="page-regimento">
+    <h2>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      Regimento Interno da PRF
+    </h2>
+    <div class="sub-divider"></div>
+    <p>O Regimento Interno da Polícia Rodoviária Federal define a estrutura organizacional, as atribuições dos cargos e as normas de funcionamento da instituição. Estabelecido com base no Decreto nº 9.739, de 28 de março de 2019.</p>
+    
+    <div style="background: #f0f2f5; padding: 16px; border-radius: 8px; margin: 20px 0;">
+      <strong>📋 Documento Oficial:</strong> Regimento Interno da PRF 2024<br>
+      <strong>Última Atualização:</strong> Março de 2024<br>
+      <strong>Publicado em:</strong> Diário Oficial da União
+    </div>
+
+    <div class="pdf-viewer">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      <span>Regimento Interno — PRF 2024</span>
+      <button class="pdf-btn" onclick="showToast('📄 Redirecionando para o PDF oficial...')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Baixar Regimento (PDF)
+      </button>
+    </div>
+
+    <div style="margin-top:28px;">
+      <div class="section-title" style="font-size:16px;"><div class="line-accent"></div>Principais Capítulos</div>
+      
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          📌 Capítulo I — Estrutura Organizacional
+          <span>▼</span>
+        </div>
+        <div class="faq-a">
+          Define a hierarquia, divisão administrativa e organograma da PRF. Contempla as delegacias regionais, unidades operacionais, postos de fiscalização e superintendências estaduais. Inclui também os órgãos de assessoramento e as estruturas de apoio.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          📌 Capítulo II — Atribuições e Competências
+          <span>▼</span>
+        </div>
+        <div class="faq-a">
+          Descreve as responsabilidades de cada nível hierárquico, dos Policiais até à Direção Geral. Define o escopo de atuação, as decisões que cada cargo pode tomar e as limitações de suas competências administrativas e operacionais.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          📌 Capítulo III — Normas Disciplinares
+          <span>▼</span>
+        </div>
+        <div class="faq-a">
+          Estabelece código de conduta e ética para todos os servidores. Define infrações, sanções disciplinares e procedimentos para processos administrativos. Abrange também deveres e proibições durante e fora do horário de trabalho.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          📌 Capítulo IV — Funcionamento Operacional
+          <span>▼</span>
+        </div>
+        <div class="faq-a">
+          Define os procedimentos para operações nas rodovias, fiscalização de trânsito, abordagens e procedimentos em caso de crimes. Inclui normas de segurança para os policiais e protocolos de uso de armas e equipamentos.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          📌 Capítulo V — Carreira e Progressão Funcional
+          <span>▼</span>
+        </div>
+        <div class="faq-a">
+          Regulamenta o ingresso, progressão de cargos, critérios de merecimento e antiguidade. Define as classificações, promoções e acesso a posições de liderança dentro da instituição.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          📌 Capítulo VI — Direitos e Deveres
+          <span>▼</span>
+        </div>
+        <div class="faq-a">
+          Especifica direitos dos policiais como férias, benefícios, representação legal, e deveres como confidencialidade, sigilo profissional e obediência às normas. Inclui também direitos dos cidadãos em interações com a PRF.
+        </div>
+      </div>
+
+      <div class="section-title" style="font-size:16px; margin-top: 28px;"><div class="line-accent"></div>Portarias Complementares</div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          ⚙️ Portaria nº 1.369/2023 — Estrutura e Organograma
+          <span>▼</span>
+        </div>
+        <div class="faq-a">
+          Define as unidades administrativas, operacionais e de apoio. Lista todas as delegacias regionais, postos de fiscalização, superintendências estaduais e serviços especializados da PRF em todo o Brasil.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          ⚙️ Portaria nº 0892/2022 — Código de Conduta
+          <span>▼</span>
+        </div>
+        <div class="faq-a">
+          Estabelece o código de ética profissional, conduta esperada de policiais e servidores. Inclui normas sobre transparência, integridade, respeito aos direitos humanos e proibições de corrupção.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          ⚙️ Lei nº 9.654/1998 — Carreira PRF
+          <span>▼</span>
+        </div>
+        <div class="faq-a">
+          Dispõe sobre a criação da carreira de Policial Rodoviário Federal. Define atribuições constitucionais, requisitos de ingresso, classificações de cargos, remuneração e sistema de progressão funcional.
+        </div>
+      </div>
+    </div>
+
+    <button class="back-btn" onclick="showHome()">← Voltar ao Início</button>
+  </div>
+
+  <!-- ===== PÁGINA: COMO FAZER PARTE ===== -->
+  <div class="subpage" id="page-como-fazer-parte">
+    <h2>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+      Como Fazer Parte da PRF
+    </h2>
+    <div class="sub-divider"></div>
+    <p>A Polícia Rodoviária Federal seleciona seus integrantes mediante <strong>concurso público</strong> de provas e títulos, conforme previsto na Constituição Federal. Veja abaixo os requisitos e etapas do processo seletivo.</p>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        👤 Requisitos para candidatura
+        <span>▼</span>
+      </div>
+      <div class="faq-a">
+        • Ser brasileiro nato ou naturalizado<br>
+        • Ter entre 18 e 65 anos de idade<br>
+        • Possuir diploma de nível superior em qualquer área<br>
+        • Possuir Carteira Nacional de Habilitação (CNH) na categoria "B" ou superior<br>
+        • Não ter antecedentes criminais<br>
+        • Aptidão física e psicológica comprovada
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        📝 Etapas do Concurso Público
+        <span>▼</span>
+      </div>
+      <div class="faq-a">
+        1. Prova Objetiva (Conhecimentos Gerais e Específicos)<br>
+        2. Teste de Aptidão Física (TAF)<br>
+        3. Exame Psicotécnico<br>
+        4. Investigação Social e Antecedentes<br>
+        5. Exame de Saúde<br>
+        6. Curso de Formação Profissional (CFAP)
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        💰 Remuneração e Benefícios
+        <span>▼</span>
+      </div>
+      <div class="faq-a">
+        Policial Rodoviário Federal recém-aprovado recebe vencimento inicial aproximado de <strong>R$ 13.800,00</strong>, além de benefícios como auxílio-alimentação, auxílio-saúde, 30 dias de férias remuneradas e plano de carreira com progressões.
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        🗓️ Próximo Concurso
+        <span>▼</span>
+      </div>
+      <div class="faq-a">
+        Fique atento às publicações no Diário Oficial da União (DOU) e acompanhe o Portal PRF para informações sobre a abertura do próximo edital. Inscreva-se no e-mail abaixo para receber notificações.
+      </div>
+    </div>
+
+    <div class="form-card" style="margin-top:24px;">
+      <p style="font-weight:700;font-size:14px;color:var(--prf-blue-dark);margin-bottom:14px;">📬 Receba notificações sobre novos concursos</p>
+      <div style="display:flex;gap:10px;align-items:flex-end;">
+        <div style="flex:1;">
+          <label class="form-label">Seu e-mail</label>
+          <input type="email" class="form-input" placeholder="seu@email.com">
+        </div>
+        <button class="submit-btn" style="margin-top:0;padding:10px 20px;" onclick="submitForm('✅ E-mail cadastrado! Você receberá avisos sobre concursos.')">Cadastrar</button>
+      </div>
+    </div>
+    <button class="back-btn" onclick="showHome()">← Voltar ao Início</button>
+  </div>
+
+  <!-- ===== PÁGINA: SUGESTÕES ===== -->
+  <div class="subpage" id="page-sugestoes">
+    <h2>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+      Envie Sua Sugestão
+    </h2>
+    <div class="sub-divider"></div>
+    <p>Sua opinião é muito importante para nós. Use este canal para enviar sugestões de melhoria, elogios ou críticas construtivas sobre os serviços da Polícia Rodoviária Federal.</p>
+
+    <div class="form-card">
+      <div class="form-row">
+        <div>
+          <label class="form-label">Nome Completo</label>
+          <input type="text" class="form-input" placeholder="Seu nome">
+        </div>
+        <div>
+          <label class="form-label">E-mail</label>
+          <input type="email" class="form-input" placeholder="seu@email.com">
+        </div>
+      </div>
+      <div class="form-row">
+        <div>
+          <label class="form-label">Área de Sugestão</label>
+          <select class="form-input" style="width:100%; padding:10px 14px; border:1.5px solid #cdd6e8; border-radius:6px; font-size:14px; font-family:inherit; background:white; outline:none;">
+            <option>Atendimento ao Cidadão</option>
+            <option>Portal/Site Digital</option>
+            <option>Operações nas Rodovias</option>
+            <option>Fiscalização</option>
+            <option>Comunicação</option>
+            <option>Outros</option>
+          </select>
+        </div>
+        <div>
+          <label class="form-label">Tipo</label>
+          <select class="form-input" style="width:100%; padding:10px 14px; border:1.5px solid #cdd6e8; border-radius:6px; font-size:14px; font-family:inherit; background:white; outline:none;">
+            <option>Sugestão</option>
+            <option>Elogio</option>
+            <option>Crítica Construtiva</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row full">
+        <div>
+          <label class="form-label">Sua Mensagem *</label>
+          <textarea class="form-input" style="min-height:120px;" placeholder="Escreva sua sugestão com detalhes..."></textarea>
+        </div>
+      </div>
+      <button class="submit-btn" onclick="submitForm('💙 Sugestão enviada! Agradecemos sua contribuição. Protocolo: SUG-' + Math.floor(Math.random()*900000+100000))">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 2 11 13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        Enviar Sugestão
+      </button>
+    </div>
+    <button class="back-btn" onclick="showHome()">← Voltar ao Início</button>
+  </div>
+
+  <!-- ===== PÁGINA: MAPA DA PRF ===== -->
+  <div class="subpage" id="page-mapa-prf">
+    <h2>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      Mapa da PRF
+    </h2>
+    <div class="sub-divider"></div>
+    <p>Localize as unidades operacionais da Polícia Rodoviária Federal em todo o território nacional. Nossa rede de bases e postos garante cobertura completa nas principais rodovias federais.</p>
+
+    <div style="text-align: center; margin: 24px 0;">
+      <img src="mapa.png" alt="Mapa da PRF" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+    </div>
+
+    <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+      <h3 style="color: var(--prf-blue-dark); margin-bottom: 16px; font-size: 16px;">🏛️ UNIPRF - Universidade Corporativa da Polícia Rodoviária Federal</h3>
+      <p style="margin-bottom: 12px; line-height: 1.6;">É a instituição responsável pela formação, capacitação, atualização e especialização dos servidores da PRF em todo o Brasil.</p>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-top: 16px;">
+        <div style="background: white; padding: 16px; border-radius: 6px; border-left: 4px solid var(--prf-blue);">
+          <strong>📍 Base de Apoio Rodovia Bandeirantes</strong><br>
+          <small>SP-348, km 72 - São Paulo/SP</small>
+        </div>
+        <div style="background: white; padding: 16px; border-radius: 6px; border-left: 4px solid var(--prf-blue);">
+          <strong>📍 Base de Apoio Rodovia Anchieta</strong><br>
+          <small>SP-150, km 32 - São Bernardo/SP</small>
+        </div>
+        <div style="background: white; padding: 16px; border-radius: 6px; border-left: 4px solid var(--prf-blue);">
+          <strong>📍 Base da Fronteira</strong><br>
+          <small>BR-277, km 708 - Foz do Iguaçu/PR</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        📊 Estatísticas da PRF
+        <span>▼</span>
+      </div>
+      <div class="faq-a">
+        • <strong>67.000 km</strong> de rodovias federais fiscalizadas<br>
+        • <strong>27 Superintendências</strong> estaduais<br>
+        • <strong>150 Delegacias</strong> regionais<br>
+        • <strong>500 Postos</strong> de fiscalização<br>
+        • <strong>13.000 Policiais</strong> em atividade
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        🚨 Emergências em Rodovias
+        <span>▼</span>
+      </div>
+      <div class="faq-a">
+        Em caso de emergência nas rodovias federais, ligue imediatamente para o <strong>191</strong> (Disque-Denúncia PRF). O atendimento é 24 horas por dia, 7 dias por semana, em todo o território nacional.
+      </div>
+    </div>
+
+    <button class="back-btn" onclick="showHome()">← Voltar ao Início</button>
+  </div>
+
+  <!-- ===== PÁGINA: UNIPRF ===== -->
+  <div class="subpage" id="page-uniprf">
+    <h2>
+      <img src="uniprf.png" alt="UNIPRF" style="width: 60px; height: 60px; margin-right: 16px; vertical-align: middle;">
+      UNIPRF - Universidade Corporativa
+    </h2>
+    <div class="sub-divider"></div>
+    <p>A Universidade Corporativa da Polícia Rodoviária Federal oferece formação profissional completa para todos os servidores. Cursos presenciais e online, capacitação técnica e desenvolvimento de liderança.</p>
+
+    <div style="background: #e8f4f8; padding: 16px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #0050b3;">
+      <strong>🎓 Missão da UNIPRF:</strong> Formar profissionais altamente qualificados, promover a excelência no serviço público e contribuir para a segurança nas rodovias brasileiras.
+    </div>
+
+    <div class="section-title" style="font-size:16px;"><div class="line-accent"></div>Cursos Disponíveis</div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <img src="coesp.png" alt="COESP" style="width: 50px; height: 50px; margin-right: 12px; vertical-align: middle; border-radius: 6px;">
+        👮 COESP - Curso de Operações Especiais
+        <span>▼</span>
+      </div>
+      <div class="faq-a">
+        O Curso de Operações Especiais da Polícia Rodoviária Federal (COESP) é uma formação de elite voltada para policiais da PRF que desejam atuar em unidades táticas especializadas, como o Grupo de Resposta Rápida (GRR).<br><br>
+        De forma direta: é um curso extremamente seletivo e pesado, focado em preparar o policial para operações de alto risco, alta complexidade e resposta imediata.<br><br>
+        Durante cerca de 3 a 4 meses, os participantes passam por treinamentos intensos em diferentes ambientes (urbano, mata, rios e diversos biomas brasileiros), incluindo técnicas como:<br><br>
+        • rapel e operações em altura<br>
+        • combate em área urbana e rural<br>
+        • resgate de reféns<br>
+        • mergulho e operações aquáticas<br>
+        • patrulhamento tático e planejamento operacional<br><br>
+        Além disso, o curso exige muito no físico e no psicológico, com alto índice de desistência — poucos concluem. Quem se forma passa a integrar as forças especiais da PRF, atuando em situações críticas que exigem preparo acima do padrão da polícia convencional.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <img src="cfmt.png" alt="CFMT" style="width: 50px; height: 50px; margin-right: 12px; vertical-align: middle; border-radius: 6px;">
+        🏍️ CFMT - Curso de Formação de Motociclista
+        <span>▼</span>
+      </div>
+      <div class="faq-a">
+        O Curso de Formação de Motociclista da Polícia Rodoviária Federal (CFMT) é uma capacitação especializada voltada para policiais que irão atuar no policiamento com motocicletas, uma das modalidades mais exigentes da PRF.<br><br>
+        O curso tem como objetivo preparar o agente para conduzir motocicletas de forma técnica, segura e eficiente em situações operacionais reais, incluindo perseguições, escoltas e fiscalização em rodovias e áreas urbanas.<br><br>
+        Durante a formação, que exige alto nível de disciplina e condicionamento físico, os participantes passam por treinamentos intensivos como:<br><br>
+        • técnicas avançadas de pilotagem (baixa e alta velocidade)<br>
+        • frenagem de emergência e controle em situações críticas<br>
+        • condução em corredores, tráfego intenso e terrenos adversos<br>
+        • escolta de autoridades e comboios<br>
+        • abordagem policial utilizando motocicleta<br>
+        • direção defensiva e evasiva<br><br>
+        Além da parte prática, o curso também trabalha tomada de decisão rápida, controle emocional e padronização de procedimentos operacionais, já que o motociclista da PRF costuma atuar na linha de frente, muitas vezes sendo o primeiro a chegar em ocorrências.<br><br>
+        Assim como outros cursos operacionais da PRF, o CFMT não é básico: ele cobra precisão, resistência e consistência. Erros que seriam toleráveis em um condutor comum simplesmente não passam aqui, porque no contexto policial, uma falha na pilotagem pode comprometer a missão e a segurança do agente e de terceiros.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <img src="CCP.png" alt="CCP" style="width: 50px; height: 50px; margin-right: 12px; vertical-align: middle; border-radius: 6px;">
+        🐕 CCP - Curso de Cinotecnia Policial
+        <span>▼</span>
+      </div>
+      <div class="faq-a">
+        O Curso de Cinotecnia Policial (CCP) da Polícia Rodoviária Federal é uma capacitação especializada voltada para policiais que irão atuar com cães em operações policiais.<br><br>
+        O objetivo do curso é formar condutores aptos a trabalhar com cães de serviço em atividades como detecção de drogas, armas, explosivos, busca de pessoas e apoio tático em diversas situações operacionais.<br><br>
+        Durante a formação, que exige disciplina, paciência e consistência, os participantes passam por treinamentos intensivos como:<br><br>
+        • fundamentos de comportamento canino e psicologia animal<br>
+        • técnicas de adestramento e condicionamento<br>
+        • condução operacional do cão em ambientes urbanos e rurais<br>
+        • detecção de odores específicos (narcóticos, armas, explosivos)<br>
+        • busca e salvamento de pessoas<br>
+        • técnicas de obediência, controle e proteção<br><br>
+        O curso também enfatiza a criação de vínculo entre o policial e o cão, já que a eficiência do trabalho depende diretamente dessa relação. Não é só "mandar o cachorro agir" — sem confiança e treinamento adequado, o animal simplesmente não responde como deveria em situações reais.<br><br>
+        Além disso, há uma cobrança constante por precisão e controle emocional, porque qualquer erro na condução pode comprometer a operação ou colocar pessoas em risco. O CCP exige mais do que técnica: exige responsabilidade total sobre o animal e domínio completo das situações em que ele será empregado.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <img src="CHOQUE.png" alt="CHOQUE" style="width: 50px; height: 50px; margin-right: 12px; vertical-align: middle; border-radius: 6px;">
+        🛡️ CHOQUE - Curso de Operador de Controle de Distúrbios
+        <span>▼</span>
+      </div>
+      <div class="faq-a">
+        O Curso de Operador de Controle de Distúrbios (CHOQUE) da Polícia Rodoviária Federal é uma capacitação voltada para policiais que irão atuar no gerenciamento e contenção de distúrbios civis, como manifestações, rebeliões e situações de desordem pública.<br><br>
+        O objetivo do curso é preparar o agente para agir de forma técnica, coordenada e proporcional no controle de multidões, preservando a ordem pública sem perder o controle da situação.<br><br>
+        Durante a formação, que exige disciplina, resistência física e alto controle emocional, os participantes passam por treinamentos como:<br><br>
+        • técnicas de formação e progressão de tropa (linha, coluna, cunha, entre outras)<br>
+        • uso progressivo da força e regras de engajamento<br>
+        • emprego de equipamentos de controle de distúrbios (escudos, bastões, agentes químicos)<br>
+        • dispersão e contenção de multidões<br>
+        • atuação em cenários de alta tensão e risco coletivo<br>
+        • comunicação e coordenação em equipe<br><br>
+        O curso também trabalha fortemente a questão psicológica, já que o operador precisa manter o controle mesmo sob provocação direta, pressão intensa e situações caóticas.<br><br>
+        Diferente de outras áreas, aqui não tem espaço para ação individual ou improviso: tudo depende de disciplina coletiva e execução precisa. Um erro de posicionamento ou uma reação fora do padrão pode comprometer toda a tropa e escalar a situação em vez de controlá-la.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <img src="CPPAR.png" alt="CPPAR" style="width: 50px; height: 50px; margin-right: 12px; vertical-align: middle; border-radius: 6px;">
+        🚁 CPPAR - Curso de Piloto Policial de Aeronave de Asa Rotativa
+        <span>▼</span>
+      </div>
+      <div class="faq-a">
+        O Curso de Piloto Policial de Aeronave de Asa Rotativa (CPPAR) da Polícia Rodoviária Federal é uma formação altamente especializada destinada a policiais que irão atuar como pilotos de helicóptero em operações aéreas.<br><br>
+        O objetivo do curso é preparar o agente para conduzir aeronaves de asa rotativa em missões policiais reais, que exigem precisão, controle total da aeronave e tomada de decisão rápida em cenários complexos.<br><br>
+        Durante a formação, que é uma das mais exigentes tecnicamente dentro da PRF, os participantes passam por treinamentos como:<br><br>
+        • fundamentos de aviação e aerodinâmica de helicópteros<br>
+        • pilotagem básica e avançada de aeronaves de asa rotativa<br>
+        • navegação aérea e leitura de cartas aeronáuticas<br>
+        • procedimentos de emergência e segurança de voo<br>
+        • operações aéreas policiais (patrulhamento, apoio a solo, acompanhamento de veículos)<br>
+        • pousos e decolagens em áreas restritas ou não preparadas<br><br>
+        O curso também exige alto nível de responsabilidade e controle emocional, já que qualquer erro em voo não dá margem para correção simples — geralmente vira acidente.<br><br>
+        Além disso, o piloto policial precisa integrar perfeitamente sua atuação com equipes em solo, mantendo comunicação clara e coordenação precisa durante as operações.<br><br>
+        Não é um curso "operacional comum": aqui o nível de exigência técnica é muito mais alto. Não basta coragem ou preparo físico — se o policial não tiver capacidade de aprendizado rápido, disciplina extrema e precisão nas decisões, ele simplesmente não acompanha o ritmo e fica pelo caminho.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <img src="CAFIT.png" alt="CAFIT" style="width: 50px; height: 50px; margin-right: 12px; vertical-align: middle; border-radius: 6px;">
+        🚦 CAFIT-TRÂNSITO - Curso Avançado de Fiscalização de Trânsito
+        <span>▼</span>
+      </div>
+      <div class="faq-a">
+        O Curso Avançado de Fiscalização de Trânsito (CAFIT-TRÂNSITO) da Polícia Rodoviária Federal é uma capacitação voltada para policiais que atuam diretamente na fiscalização e aplicação da legislação de trânsito em rodovias federais.<br><br>
+        O objetivo do curso é aprofundar o conhecimento técnico e prático do agente para identificar infrações com precisão, atuar de forma estratégica na prevenção de acidentes e garantir o cumprimento das normas de trânsito com alto nível de eficiência.<br><br>
+        Durante a formação, os participantes passam por treinamentos como:<br><br>
+        • interpretação avançada do Código de Trânsito Brasileiro e legislações complementares<br>
+        • técnicas de fiscalização em campo e abordagem de veículos<br>
+        • identificação de irregularidades em veículos (documentação, equipamentos obrigatórios, alterações ilegais)<br>
+        • uso de equipamentos de fiscalização (etilômetros, radares, sistemas eletrônicos)<br>
+        • análise de fatores de risco e prevenção de acidentes<br>
+        • procedimentos administrativos e lavratura de autos de infração<br><br>
+        O curso também reforça a padronização das ações policiais e a tomada de decisão baseada em critérios técnicos, evitando erros que possam invalidar autuações ou comprometer a atuação do agente.<br><br>
+        Diferente de cursos mais operacionais, aqui o foco não é força ou confronto — é precisão técnica e conhecimento. Se o policial não dominar a legislação e os procedimentos, ele não fiscaliza corretamente e ainda corre o risco de gerar autuações inválidas, o que na prática anula todo o trabalho.
+      </div>
+    </div>
+
+    <div class="form-card" style="margin-top:24px;">
+      <p style="font-weight:700;font-size:14px;color:var(--prf-blue-dark);margin-bottom:14px;">📚 Inscreva-se em um Curso</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <div style="flex:1;min-width:200px;">
+          <label class="form-label">Nome Completo</label>
+          <input type="text" class="form-input" id="inscricao-nome" placeholder="Seu nome completo">
+        </div>
+        <div style="flex:1;min-width:200px;">
+          <label class="form-label">E-mail Institucional</label>
+          <input type="email" class="form-input" id="inscricao-email" placeholder="nome@prf.gov.br">
+        </div>
+        <div style="flex:1;min-width:200px;">
+          <label class="form-label">Curso Desejado</label>
+          <select class="form-input" id="inscricao-curso">
+            <option value="">Selecione um curso</option>
+            <option value="COESP">COESP - Curso de Operações Especiais</option>
+            <option value="CFMT">CFMT - Curso de Formação de Motociclista</option>
+            <option value="CCP">CCP - Curso de Cinotecnia Policial</option>
+            <option value="CHOQUE">CHOQUE - Curso de Operador de Controle de Distúrbios</option>
+            <option value="CPPAR">CPPAR - Curso de Piloto Policial de Aeronave de Asa Rotativa</option>
+            <option value="CAFIT">CAFIT-TRÂNSITO - Curso Avançado de Fiscalização de Trânsito</option>
+          </select>
+        </div>
+        <button class="submit-btn" style="margin-top:24px;" onclick="inscreverCurso()">📚 Inscrever-se</button>
+      </div>
+      <div style="margin-top:16px;">
+        <button class="btn-secondary" onclick="exportarInscricoes()">📄 Exportar Inscrições (JSON)</button>
+      </div>
+    </div>
+
+    <button class="back-btn" onclick="showHome()">← Voltar ao Início</button>
+  </div>
+
+  <!-- ===== PÁGINA: ACESSO À INFORMAÇÃO ===== -->
+  <div class="subpage" id="page-acesso-info">
+    <h2>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10,9 9,9 8,9"/></svg>
+      Acesso à Informação
+    </h2>
+    <div class="sub-divider"></div>
+    <p>Em cumprimento à Lei nº 12.527/2011 (Lei de Acesso à Informação - LAI), a Polícia Rodoviária Federal garante o direito de acesso às informações públicas. Solicite dados, documentos e informações sobre nossas atividades.</p>
+
+    <div style="background: #e8f4f8; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid var(--prf-blue);">
+      <h3 style="color: var(--prf-blue-dark); margin-bottom: 12px;">📋 Sobre a LAI</h3>
+      <p style="margin: 0; line-height: 1.6;">A Lei de Acesso à Informação regulamenta o direito constitucional de acesso às informações públicas, promovendo a transparência, o controle social e o combate à corrupção.</p>
+    </div>
+
+    <div class="section-title" style="font-size:16px;"><div class="line-accent"></div>Solicitar Informação</div>
+
+    <div class="form-card">
+      <div class="form-row">
+        <div>
+          <label class="form-label">Nome Completo *</label>
+          <input type="text" class="form-input" placeholder="Seu nome completo">
+        </div>
+        <div>
+          <label class="form-label">CPF *</label>
+          <input type="text" class="form-input" placeholder="000.000.000-00" oninput="maskCPF(this)">
+        </div>
+      </div>
+      <div class="form-row">
+        <div>
+          <label class="form-label">E-mail *</label>
+          <input type="email" class="form-input" placeholder="seu@email.com">
+        </div>
+        <div>
+          <label class="form-label">Telefone</label>
+          <input type="tel" class="form-input" placeholder="(00) 00000-0000">
+        </div>
+      </div>
+      <div class="form-row full">
+        <div>
+          <label class="form-label">Assunto da Solicitação *</label>
+          <select class="form-input" style="width:100%; padding:10px 14px; border:1.5px solid #cdd6e8; border-radius:6px; font-size:14px; font-family:inherit; background:white; outline:none;">
+            <option>Dados Estatísticos</option>
+            <option>Relatórios de Atividades</option>
+            <option>Processos Administrativos</option>
+            <option>Contratos e Licitações</option>
+            <option>Informações sobre Fiscalização</option>
+            <option>Outros</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row full">
+        <div>
+          <label class="form-label">Descrição Detalhada da Informação Solicitada *</label>
+          <textarea class="form-input" style="min-height:120px;" placeholder="Descreva com detalhes quais informações você deseja acessar. Seja específico para facilitar o atendimento."></textarea>
+        </div>
+      </div>
+      <div style="background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 6px; padding: 12px; margin-bottom: 16px;">
+        <strong>⚠️ Importante:</strong> Solicitações genéricas ou muito amplas podem ser indeferidas. Seja específico sobre os dados desejados.
+      </div>
+      <button class="submit-btn" onclick="submitForm('📄 Solicitação registrada! Protocolo: LAI-' + Math.floor(Math.random()*900000+100000) + '. Resposta em até 20 dias úteis.')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        Enviar Solicitação
+      </button>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        📊 Informações Disponíveis
+        <span>▼</span>
+      </div>
+      <div class="faq-a">
+        • Estatísticas de acidentes e fiscalizações<br>
+        • Relatórios anuais de atividades<br>
+        • Dados sobre campanhas educativas<br>
+        • Informações sobre concursos públicos<br>
+        • Relatórios de transparência fiscal
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        ⏰ Prazos de Resposta
+        <span>▼</span>
+      </div>
+      <div class="faq-a">
+        • <strong>Informações simples:</strong> Até 20 dias<br>
+        • <strong>Informações complexas:</strong> Até 30 dias (prorrogável por mais 10)<br>
+        • <strong>Recursos:</strong> 10 dias para análise
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        📞 Contato
+        <span>▼</span>
+      </div>
+      <div class="faq-a">
+        <strong>Ouvidoria PRF:</strong> 0800-000-0000<br>
+        <strong>E-mail:</strong> ouvidoria@prf.gov.br<br>
+        <strong>Horário:</strong> Segunda a sexta, 8h às 18h
+      </div>
+    </div>
+
+    <button class="back-btn" onclick="showHome()">← Voltar ao Início</button>
+  </div>
+
+  <!-- ===== PÁGINA: LEGISLAÇÃO ===== -->
+  <div class="subpage" id="page-legislacao">
+    <h2>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+      Legislação
+    </h2>
+    <div class="sub-divider"></div>
+    <p>Conheça a legislação que regulamenta as atividades da Polícia Rodoviária Federal e o trânsito nas rodovias federais brasileiras.</p>
+
+    <div class="section-title" style="font-size:16px;"><div class="line-accent"></div>Leis Principais</div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        📋 Lei nº 9.503/1997 - Código de Trânsito Brasileiro (CTB)
+        <span>▼</span>
+      </div>
+      <div class="faq-a">
+        <strong>Publicada em:</strong> 23/09/1997<br>
+        <strong>Última alteração:</strong> Lei nº 14.071/2020<br><br>
+        Estabelece normas de conduta para o trânsito de veículos, pedestres e condutores, com o objetivo de garantir a segurança e a fluidez do trânsito.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        👮 Lei nº 13.675/2018 - Lei da PRF
+        <span>▼</span>
+      </div>
+      <div class="faq-a">
+        <strong>Publicada em:</strong> 11/06/2018<br><br>
+        Dispõe sobre a organização da Polícia Rodoviária Federal, estabelece suas competências e regulamenta sua atuação nas rodovias federais.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        🔍 Lei nº 12.527/2011 - Lei de Acesso à Informação (LAI)
+        <span>▼</span>
+      </div>
+      <div class="faq-a">
+        <strong>Publicada em:</strong> 18/11/2011<br><br>
+        Regula o acesso a informações públicas, promovendo a transparência e o controle social sobre a administração pública.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        🚫 Lei nº 11.343/2006 - Lei de Drogas
+        <span>▼</span>
+      </div>
+      <div class="faq-a">
+        <strong>Publicada em:</strong> 23/08/2006<br>
+        <strong>Última alteração:</strong> Lei nº 13.840/2019<br><br>
+        Dispõe sobre o Sistema Nacional de Políticas Públicas sobre Drogas e define crimes relacionados ao tráfico e uso de substâncias entorpecentes.
+      </div>
+    </div>
+
+    <div class="section-title" style="font-size:16px;"><div class="line-accent"></div>Decretos e Portarias</div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        📊 Decreto nº 9.055/2017 - Regulamenta a Lei da PRF
+        <span>▼</span>
+      </div>
+      <div class="faq-a">
+        Regulamenta a Lei nº 13.675/2018, estabelecendo normas para o exercício das competências da Polícia Rodoviária Federal.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        🚦 Resolução CONTRAN nº 723/2018 - Multas de Trânsito
+        <span>▼</span>
+      </div>
+      <div class="faq-a">
+        Estabelece os valores das multas de trânsito e os critérios para sua aplicação, conforme o Código de Trânsito Brasileiro.
+      </div>
+    </div>
+
+    <div class="section-title" style="font-size:16px;"><div class="line-accent"></div>Consulta Legislativa</div>
+
+    <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+      <h3 style="color: var(--prf-blue-dark); margin-bottom: 16px;">🔍 Buscar Legislação</h3>
+      <div style="display: flex; gap: 10px; align-items: flex-end;">
+        <div style="flex: 1;">
+          <label class="form-label">Palavras-chave</label>
+          <input type="text" class="form-input" placeholder="Ex: trânsito, multa, fiscalização...">
+        </div>
+        <button class="submit-btn" style="margin-top: 0; padding: 10px 20px;" onclick="showToast('🔍 Busca realizada. Consulte o Portal da Legislação Federal para resultados completos.')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          Buscar
+        </button>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        🌐 Links para Consulta
+        <span>▼</span>
+      </div>
+      <div class="faq-a">
+        • <a href="https://www.planalto.gov.br" target="_blank" style="color: var(--prf-blue);">Portal da Legislação Federal</a><br>
+        • <a href="https://www.in.gov.br" target="_blank" style="color: var(--prf-blue);">Imprensa Nacional</a><br>
+        • <a href="https://www.denatran.gov.br" target="_blank" style="color: var(--prf-blue);">DENATRAN</a><br>
+        • <a href="https://www.contran.gov.br" target="_blank" style="color: var(--prf-blue);">CONTRAN</a>
+      </div>
+    </div>
+
+    <button class="back-btn" onclick="showHome()">← Voltar ao Início</button>
+  </div>
+
+  <!-- ===== ÁREA RESTRITA - DASHBOARD PRF ===== -->
+  <div class="subpage" id="page-restricted">
+    <div class="restricted-header">
+      <div class="user-info">
+        <div class="user-avatar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <div class="user-details">
+          <h2>Agente PRF</h2>
+          <p>Policial Rodoviário Federal - GTA RP</p>
+          <span class="user-status online">● Online</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn-secondary" onclick="logout()">Sair</button>
+      </div>
+    </div>
+
+    <div class="dashboard-grid">
+      <!-- Estatísticas -->
+      <div class="dashboard-card stats-card">
+        <h3>📊 Estatísticas do Dia</h3>
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-number">47</div>
+            <div class="stat-label">Multas Aplicadas</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">12</div>
+            <div class="stat-label">Veículos Apreendidos</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">8</div>
+            <div class="stat-label">Operações Realizadas</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">156</div>
+            <div class="stat-label">Km Fiscalizados</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sistema de Multas -->
+      <div class="dashboard-card">
+        <h3>🚫 Sistema de Multas</h3>
+        <div class="multas-form">
+          <div class="form-row">
+            <div>
+              <label class="form-label">Placa do Veículo</label>
+              <input type="text" class="form-input" placeholder="ABC-1234" id="placa-input">
+            </div>
+            <div>
+              <label class="form-label">Tipo de Infração</label>
+              <select class="form-input" id="infracao-select">
+                <option>Excesso de Velocidade</option>
+                <option>Estacionamento Irregular</option>
+                <option>Dirigir sem CNH</option>
+                <option>Veículo Irregular</option>
+                <option>Outros</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row full">
+            <div>
+              <label class="form-label">Observações</label>
+              <textarea class="form-input" placeholder="Detalhes da infração..." id="obs-input"></textarea>
+            </div>
+          </div>
+          <button class="submit-btn" onclick="aplicarMulta()">Aplicar Multa</button>
+        </div>
+      </div>
+
+      <!-- Controle de Veículos -->
+      <div class="dashboard-card">
+        <h3>🚗 Controle de Veículos</h3>
+        <div class="veiculos-list">
+          <div class="veiculo-item">
+            <div class="veiculo-info">
+              <strong>ABC-1234</strong> - Honda Civic
+              <span class="status apreendido">Apreendido</span>
+            </div>
+            <div class="veiculo-actions">
+              <button class="btn-small" onclick="liberarVeiculo('ABC-1234')">Liberar</button>
+            </div>
+          </div>
+          <div class="veiculo-item">
+            <div class="veiculo-info">
+              <strong>DEF-5678</strong> - Toyota Corolla
+              <span class="status apreendido">Apreendido</span>
+            </div>
+            <div class="veiculo-actions">
+              <button class="btn-small" onclick="liberarVeiculo('DEF-5678')">Liberar</button>
+            </div>
+          </div>
+          <div class="veiculo-item">
+            <div class="veiculo-info">
+              <strong>GHI-9012</strong> - BMW X5
+              <span class="status liberado">Liberado</span>
+            </div>
+            <div class="veiculo-actions">
+              <button class="btn-small disabled">Liberado</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Comunicação Interna -->
+      <div class="dashboard-card">
+        <h3>📡 Comunicação Interna</h3>
+        <div class="chat-messages">
+          <div class="message">
+            <strong>Delegado Silva:</strong> Reunião de equipe amanhã às 14h no posto da BR-101.
+          </div>
+          <div class="message">
+            <strong>Agente Costa:</strong> Operação Blitz na Marginal Pinheiros confirmada para hoje.
+          </div>
+          <div class="message">
+            <strong>Delegado Silva:</strong> Todos os agentes devem atualizar seus relatórios até o fim do dia.
+          </div>
+        </div>
+        <div class="chat-input">
+          <input type="text" placeholder="Digite sua mensagem..." id="chat-input">
+          <button onclick="enviarMensagem()">Enviar</button>
+        </div>
+      </div>
+
+      <!-- Relatórios -->
+      <div class="dashboard-card">
+        <h3>📋 Relatórios</h3>
+        <div class="relatorios-list">
+          <div class="relatorio-item">
+            <div class="relatorio-info">
+              <strong>Relatório de Operação - Blitz Marginal</strong>
+              <small>Hoje, 14:30</small>
+            </div>
+            <button class="btn-small" onclick="verRelatorio(1)">Ver</button>
+          </div>
+          <div class="relatorio-item">
+            <div class="relatorio-info">
+              <strong>Relatório Semanal - Semana 15</strong>
+              <small>Ontem, 18:00</small>
+            </div>
+            <button class="btn-small" onclick="verRelatorio(2)">Ver</button>
+          </div>
+          <div class="relatorio-item">
+            <div class="relatorio-info">
+              <strong>Relatório de Multas - Abril 2024</strong>
+              <small>15/04/2024, 10:15</small>
+            </div>
+            <button class="btn-small" onclick="verRelatorio(3)">Ver</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mapa de Operações -->
+      <div class="dashboard-card">
+        <h3>🗺️ Mapa de Operações</h3>
+        <div class="map-placeholder">
+          <div class="map-point" style="top: 30%; left: 40%;">🚔 Posto BR-101</div>
+          <div class="map-point" style="top: 50%; left: 60%;">🚔 Blitz Marginal</div>
+          <div class="map-point" style="top: 70%; left: 30%;">🚔 Posto Anhanguera</div>
+        </div>
+        <button class="btn-secondary" onclick="atualizarMapa()">Atualizar Mapa</button>
+      </div>
+
+      <!-- Boletins Registrados -->
+      <div class="dashboard-card" style="grid-column: 1 / -1;">
+        <h3>📋 Boletins de Ocorrência Registrados</h3>
+        <div style="display:flex;gap:10px;margin-bottom:16px;align-items:flex-end;">
+          <div style="flex:1;">
+            <label class="form-label" style="font-size:12px;">Buscar por Protocolo/Local</label>
+            <input type="text" id="filtro-boletim" placeholder="Protocolo ou Local..." style="width:100%;padding:8px 12px;border:1px solid #ddd;border-radius:6px;font-size:14px;" oninput="filtrarBoletins()">
+          </div>
+          <button class="btn-secondary" onclick="recarregarBoletins()">🔄 Recarregar</button>
+        </div>
+        <div id="boletins-lista" style="max-height:400px;overflow-y:auto;">
+          <p style="text-align:center;color:#666;">Carregando boletins...</p>
+        </div>
+      </div>
+    </div>
+
+    <button class="back-btn" onclick="logout()">← Logout</button>
+  </div>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img width="44" height="52" src="prf.png" alt="Logo PRF" style="flex-shrink: 0;">
+      <div>
+        <div class="footer-title">Polícia Rodoviária Federal</div>
+        <div class="footer-sub">Ministério da Justiça e Segurança Pública | Realidade Paulista<br><span style="color: #ffcd07; font-weight: 600;">Obra de Ficção para GTA 5 Online</span></div>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Serviços</h4>
+      <ul>
+        <li><a href="#" onclick="showPage('denuncia')">Boletim de Ocorrência</a></li>
+        <li><a href="regimento.html">Regimento PRF</a></li>
+        <li><a href="#" onclick="showPage('como-fazer-parte')">Como Fazer Parte</a></li>
+        <li><a href="#" onclick="showPage('sugestoes')">Sugestões</a></li>
+        <li><a href="#" onclick="showPage('mapa-prf')">Mapa da PRF</a></li>
+        <li><a href="#" onclick="showPage('uniprf')">UNIPRF</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Links Úteis</h4>
+      <ul>
+        <li><a href="https://www.gov.br" target="_blank">gov.br</a></li>
+        <li><a href="#" onclick="openAcesso()">Acesso à Informação</a></li>
+        <li><a href="#" onclick="openLeg()">Legislação</a></li>
+        <li><a href="#" onclick="showLogin()">Área Restrita</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2024 Polícia Rodoviária Federal — Todos os direitos reservados</p>
+    <div class="footer-govbr">
+      <span class="govbr-logo">gov<span style="color:rgba(255,255,255,0.5);font-weight:400">.br</span></span>
+      <span>Portal do Governo Brasileiro</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== MODAL LOGIN GOV.BR ===== -->
+<div class="login-modal-overlay" id="login-modal" style="display:none;" onclick="closeLoginIfOutside(event)">
+  <div class="login-modal">
+    <div class="modal-header">
+      <div class="modal-header-brand">
+        <span class="govbr-logo">gov<span>.br</span></span>
+        <div>
+          <div style="color:white;font-weight:700;font-size:14px;">Entrar com gov.br</div>
+          <h3>Acesso Seguro ao Portal PRF</h3>
+        </div>
+      </div>
+      <button class="modal-close" onclick="closeLogin()">✕</button>
+    </div>
+    <div class="modal-body">
+      <p class="intro">Use seu CPF e senha cadastrados no <strong>gov.br</strong> para acessar a área restrita da Polícia Rodoviária Federal.</p>
+      <div class="form-group">
+        <label>CPF</label>
+        <input type="text" placeholder="000.000.000-00" id="cpf-input" oninput="maskCPF(this)">
+      </div>
+      <div class="form-group">
+        <label>Senha gov.br</label>
+        <input type="password" placeholder="Digite sua senha" id="senha-input">
+      </div>
+      <button class="btn-govbr" onclick="doLogin()">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+        Entrar com gov.br
+      </button>
+      <div class="modal-divider">ou acesse com</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <button style="background:#f0f2f5;border:1.5px solid #ddd;border-radius:6px;padding:10px;font-size:12.5px;font-weight:600;cursor:pointer;color:#333;font-family:inherit;" onclick="showToast('🔑 Redirecionando para certificado digital...')">🪪 Certificado Digital</button>
+        <button style="background:#f0f2f5;border:1.5px solid #ddd;border-radius:6px;padding:10px;font-size:12.5px;font-weight:600;cursor:pointer;color:#333;font-family:inherit;" onclick="showToast('📱 QR Code enviado para o seu celular')">📱 QR Code</button>
+      </div>
+      <div class="modal-links">
+        <a href="#">Esqueci minha senha</a>
+        <a href="https://acesso.gov.br" target="_blank">Criar conta gov.br</a>
+      </div>
+    </div>
+    <div class="modal-footer">
+      Acesso seguro provido pelo <a href="https://www.gov.br" target="_blank">Portal gov.br</a> — Governo Federal do Brasil
+    </div>
+  </div>
+</div>
+
+<script>
+  // Navegação entre páginas
+  function showHome() {
+    document.getElementById('home-page').style.display = 'block';
+    document.querySelectorAll('.subpage').forEach(p => p.classList.remove('active'));
+    document.getElementById('breadcrumb-text').innerHTML = '<a href="#">gov.br</a> <span>›</span> <a href="#">Polícia Rodoviária Federal</a> <span>›</span> Página Inicial';
+    setActiveNav('nav-home');
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+
+  function showPage(id) {
+    document.getElementById('home-page').style.display = 'none';
+    document.querySelectorAll('.subpage').forEach(p => p.classList.remove('active'));
+    const page = document.getElementById('page-' + id);
+    if (page) page.classList.add('active');
+    const labels = {
+      'denuncia': 'Boletim de Ocorrência',
+      'regimento': 'Regimento PRF',
+      'como-fazer-parte': 'Como Fazer Parte',
+      'sugestoes': 'Sugestões',
+      'mapa-prf': 'Mapa da PRF',
+      'uniprf': 'UNIPRF',
+      'acesso-info': 'Acesso à Informação',
+      'legislacao': 'Legislação'
+    };
+    document.getElementById('breadcrumb-text').innerHTML =
+      '<a href="#">gov.br</a> <span>›</span> <a href="#" onclick="showHome()">PRF</a> <span>›</span> ' + (labels[id] || id);
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+
+  function setActiveNav(id) {
+    document.querySelectorAll('.nav-menu a').forEach(a => a.classList.remove('active'));
+    const el = document.getElementById(id);
+    if (el) el.classList.add('active');
+  }
+
+  // Login modal
+  function showLogin() {
+    document.getElementById('login-modal').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLogin() {
+    document.getElementById('login-modal').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+  function closeLoginIfOutside(e) {
+    if (e.target === document.getElementById('login-modal')) closeLogin();
+  }
+  function doLogin() {
+    const cpf = document.getElementById('cpf-input').value.replace(/\D/g, '');
+    const senha = document.getElementById('senha-input').value;
+
+    if (cpf === '00000000000' && senha === '123') {
+      closeLogin();
+      showToast('✅ Login realizado com sucesso! Bem-vindo à área restrita.');
+      setTimeout(() => showRestrictedArea(), 1200);
+    } else {
+      showToast('❌ CPF ou senha incorretos. Tente novamente.');
+    }
+  }
+
+  // Máscara CPF
+  function maskCPF(el) {
+    let v = el.value.replace(/\D/g, '').substring(0, 11);
+    if (v.length > 9) v = v.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/, '$1.$2.$3-$4');
+    else if (v.length > 6) v = v.replace(/(\d{3})(\d{3})(\d{1,3})/, '$1.$2.$3');
+    else if (v.length > 3) v = v.replace(/(\d{3})(\d{1,3})/, '$1.$2');
+    el.value = v;
+  }
+
+  // Toast notification
+  function showToast(msg) {
+    const old = document.querySelector('.toast');
+    if (old) old.remove();
+    const t = document.createElement('div');
+    t.className = 'toast';
+    t.innerHTML = msg;
+    document.body.appendChild(t);
+    setTimeout(() => t.remove(), 3200);
+  }
+
+  function toggleAnonimoBoletim() {
+    const anonimo = document.getElementById('bo-anon').checked;
+    const nomeInput = document.getElementById('bo-nome');
+    const emailGroup = document.getElementById('bo-email-group');
+
+    if (anonimo) {
+      nomeInput.value = 'Anônimo';
+      nomeInput.readOnly = true;
+      nomeInput.placeholder = 'Nome bloqueado por sigilo';
+      emailGroup.style.display = 'none';
+    } else {
+      if (nomeInput.value === 'Anônimo') {
+        nomeInput.value = '';
+      }
+      nomeInput.readOnly = false;
+      nomeInput.placeholder = 'Deixe em branco se preferir anonimato';
+      emailGroup.style.display = 'block';
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    if (document.getElementById('bo-anon')) {
+      toggleAnonimoBoletim();
+    }
+  });
+
+  // Submit form
+  function submitForm(msg) {
+    showToast(msg);
+    setTimeout(() => showHome(), 1200);
+  }
+
+  // Inscrição em cursos - salva em localStorage
+  function inscreverCurso() {
+    const nome = document.getElementById('inscricao-nome').value.trim();
+    const email = document.getElementById('inscricao-email').value.trim();
+    const curso = document.getElementById('inscricao-curso').value;
+
+    if (!nome || !email || !curso) {
+      showToast('⚠️ Por favor, preencha todos os campos.');
+      return;
+    }
+
+    // Validar e-mail básico
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      showToast('⚠️ E-mail inválido.');
+      return;
+    }
+
+    // Criar objeto da inscrição
+    const inscricao = {
+      id: Date.now(),
+      nome: nome,
+      email: email,
+      curso: curso,
+      data: new Date().toISOString(),
+      status: 'Pendente'
+    };
+
+    // Recuperar inscrições existentes ou criar array vazio
+    let inscricoes = JSON.parse(localStorage.getItem('prf_inscricoes') || '[]');
+
+    // Adicionar nova inscrição
+    inscricoes.push(inscricao);
+
+    // Salvar no localStorage
+    localStorage.setItem('prf_inscricoes', JSON.stringify(inscricoes));
+
+    // Limpar campos
+    document.getElementById('inscricao-nome').value = '';
+    document.getElementById('inscricao-email').value = '';
+    document.getElementById('inscricao-curso').value = '';
+
+    // Mostrar confirmação
+    showToast(`✅ Inscrição realizada com sucesso! Protocolo: UNI-${inscricao.id}`);
+  }
+
+  // Exportar inscrições para JSON
+  function exportarInscricoes() {
+    const inscricoes = JSON.parse(localStorage.getItem('prf_inscricoes') || '[]');
+
+    if (inscricoes.length === 0) {
+      showToast('⚠️ Nenhuma inscrição encontrada.');
+      return;
+    }
+
+    // Criar blob com JSON formatado
+    const jsonData = JSON.stringify(inscricoes, null, 2);
+    const blob = new Blob([jsonData], { type: 'application/json' });
+
+    // Criar link de download
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `inscricoes_uniprf_${new Date().toISOString().split('T')[0]}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    showToast('📄 Arquivo JSON exportado com sucesso!');
+  }
+
+  // Registrar boletim de ocorrência
+  function registrarBoletim() {
+    const tipo = document.getElementById('bo-tipo').value;
+    const local = document.getElementById('bo-local').value.trim();
+    const datahora = document.getElementById('bo-datahora').value;
+    const cidade = document.getElementById('bo-cidade').value.trim();
+    const descricao = document.getElementById('bo-descricao').value.trim();
+    const nome = document.getElementById('bo-nome').value.trim();
+    const email = document.getElementById('bo-email').value.trim();
+    const anonimo = document.getElementById('bo-anon').checked;
+
+    if (!tipo || !local || !descricao) {
+      showToast('⚠️ Por favor, preencha os campos obrigatórios (*).');
+      return;
+    }
+
+    // Criar objeto do boletim
+    const boletim = {
+      id: Date.now(),
+      protocolo: 'BO-' + Math.floor(Math.random()*900000+100000),
+      tipo: tipo,
+      local: local,
+      datahora: datahora || new Date().toISOString().slice(0,16),
+      cidade: cidade,
+      descricao: descricao,
+      nome: anonimo ? 'Anônimo' : nome,
+      email: anonimo ? '' : email,
+      anonimo: anonimo,
+      dataRegistro: new Date().toISOString(),
+      status: 'Registrado'
+    };
+
+    // Recuperar boletins existentes ou criar array vazio
+    let boletins = JSON.parse(localStorage.getItem('prf_boletins') || '[]');
+
+    // Adicionar novo boletim
+    boletins.push(boletim);
+
+    // Salvar no localStorage
+    localStorage.setItem('prf_boletins', JSON.stringify(boletins));
+
+    // Limpar campos
+    document.getElementById('bo-tipo').value = '';
+    document.getElementById('bo-local').value = '';
+    document.getElementById('bo-datahora').value = '';
+    document.getElementById('bo-cidade').value = '';
+    document.getElementById('bo-descricao').value = '';
+    document.getElementById('bo-nome').value = '';
+    document.getElementById('bo-email').value = '';
+
+    // Mostrar confirmação
+    showToast(`✅ Boletim registrado com sucesso! Protocolo: ${boletim.protocolo}`);
+
+    // Gerar boletim automaticamente
+    setTimeout(() => gerarBoletim(boletim, false), 1500);
+  }
+
+  // Gerar boletim de ocorrência formatado
+  function gerarBoletim(boletim, imprimirApenasUm) {
+    console.log('Gerando boletim profissional:', boletim);
+    let html = '<!DOCTYPE html><html><head>';
+    html += '<meta charset="UTF-8">';
+    html += '<title>Boletim ' + boletim.protocolo + '</title>';
+    html += '<style>';
+    html += 'body{font-family:Arial,sans-serif;margin:20px;background:#f5f5f5}';
+    html += '.container{max-width:800px;margin:0 auto;background:white;padding:30px;box-shadow:0 2px 10px rgba(0,0,0,0.1)}';
+    html += '.header{background:linear-gradient(135deg,#003580,#0050b3);color:white;padding:25px;text-align:center;border-radius:8px 8px 0 0}';
+    html += '.logo{margin-bottom:15px}';
+    html += '.content{padding:20px}';
+    html += '.section{margin-bottom:25px;border-bottom:1px solid #eee;padding-bottom:15px}';
+    html += '.assinatura{text-align:center;margin-top:40px;border-top:2px solid #003580;padding-top:20px}';
+    html += '.assinatura-nome{font-weight:bold;font-size:18px;color:#003580;margin-bottom:5px}';
+    html += '.assinatura-cargo{font-style:italic;color:#666}';
+    html += '.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}';
+    html += '.info-item{background:#f8f9fa;padding:10px;border-radius:4px;border-left:3px solid #003580}';
+    html += '</style></head><body>';
+    html += '<div class="container">';
+    html += '<div class="header">';
+    html += '<div class="logo"><img src="prf.png" alt="Logo PRF" style="width:70px;height:70px;border-radius:8px;"></div>';
+    html += '<h1 style="margin:10px 0;font-size:24px;">BOLETIM DE OCORRÊNCIA</h1>';
+    html += '<p style="margin:5px 0;">Polícia Rodoviária Federal</p>';
+    html += '<p style="margin:5px 0;font-size:14px;">Ministério da Justiça e Segurança Pública</p>';
+    html += '<div style="background:rgba(255,255,255,0.2);padding:8px 15px;border-radius:4px;display:inline-block;margin-top:10px;font-weight:bold;">Protocolo: ' + boletim.protocolo + '</div>';
+    html += '</div>';
+    html += '<div class="content">';
+    html += '<div class="section">';
+    html += '<h3 style="color:#003580;margin-bottom:15px;">INFORMAÇÕES DA OCORRÊNCIA</h3>';
+    html += '<div class="info-grid">';
+    html += '<div class="info-item"><strong>Data/Hora:</strong><br>' + new Date(boletim.datahora).toLocaleString('pt-BR') + '</div>';
+    html += '<div class="info-item"><strong>Tipo:</strong><br>' + boletim.tipo + '</div>';
+    html += '<div class="info-item"><strong>Local:</strong><br>' + boletim.local + '</div>';
+    html += '<div class="info-item"><strong>Cidade:</strong><br>' + (boletim.cidade || 'Não informado') + '</div>';
+    html += '</div>';
+    html += '</div>';
+    html += '<div class="section">';
+    html += '<h3 style="color:#003580;margin-bottom:15px;">DESCRIÇÃO DETALHADA</h3>';
+    html += '<div style="background:#fffbf0;border:1px solid #ff9800;padding:15px;border-radius:4px;line-height:1.5;">' + boletim.descricao + '</div>';
+    html += '</div>';
+    html += '<div class="section">';
+    html += '<h3 style="color:#003580;margin-bottom:15px;">DADOS DO COMUNICANTE</h3>';
+    html += '<div class="info-grid">';
+    html += '<div class="info-item"><strong>Nome:</strong><br>' + boletim.nome + '</div>';
+    html += '<div class="info-item"><strong>E-mail:</strong><br>' + (boletim.email || 'Não informado') + '</div>';
+    html += '</div>';
+    html += '<div style="margin-top:15px;padding:10px;background:#e8f5e9;border-radius:4px;"><strong>Tipo de Comunicação:</strong> ' + (boletim.anonimo ? 'Anônima (Confidencial)' : 'Identificada') + '</div>';
+    html += '</div>';
+    html += '<div class="assinatura">';
+    html += '<div style="width:250px;border-bottom:2px solid #000;margin:0 auto 15px;"></div>';
+    html += '<div class="assinatura-nome">Clark Kent</div>';
+    html += '<div class="assinatura-cargo">Diretor da Polícia Rodoviária Federal</div>';
+    html += '</div>';
+    html += '</div>';
+    html += '</div>';
+    html += '<script>window.onload=function(){window.print();}<\/script>';
+    html += '</body></html>';
+
+    // Tentar abrir em nova janela
+    try {
+      const novaJanela = window.open('', '_blank', 'width=900,height=700');
+      if (novaJanela) {
+        novaJanela.document.write(html);
+        novaJanela.document.close();
+      } else {
+        // Fallback: download
+        const blob = new Blob([html], {type: 'text/html'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'boletim-' + boletim.protocolo + '.html';
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+    } catch (error) {
+      console.error('Erro ao gerar boletim:', error);
+    }
+  }
+
+  // Exportar boletins para JSON
+  function exportarBoletins() {
+    const boletins = JSON.parse(localStorage.getItem('prf_boletins') || '[]');
+
+    if (boletins.length === 0) {
+      showToast('⚠️ Nenhum boletim encontrado.');
+      return;
+    }
+
+    // Criar blob com JSON formatado
+    const jsonData = JSON.stringify(boletins, null, 2);
+    const blob = new Blob([jsonData], { type: 'application/json' });
+
+    // Criar link de download
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `boletins_ocorrencia_${new Date().toISOString().split('T')[0]}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    showToast('📄 Arquivo JSON exportado com sucesso!');
+  }
+
+  // Carregar boletins no painel
+  function recarregarBoletins() {
+    const boletins = JSON.parse(localStorage.getItem('prf_boletins') || '[]');
+    const lista = document.getElementById('boletins-lista');
+
+    if (boletins.length === 0) {
+      lista.innerHTML = '<p style="text-align:center;color:#999;padding:20px;">Nenhum boletim registrado ainda.</p>';
+      return;
+    }
+
+    let html = '<div style="display:grid;gap:8px;">';
+    boletins.forEach((bo, idx) => {
+      html += '<div style="background:#f8f9fa;padding:12px;border-radius:6px;border-left:4px solid #003580;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background=\'#e8f0f8\'" onmouseout="this.style.background=\'#f8f9fa\'" onclick="exibirBoletim(' + idx + ')">';
+      html += '<div style="display:flex;justify-content:space-between;align-items:center;">';
+      html += '<div>';
+      html += '<div style="font-weight:600;color:#003580;font-size:13px;">' + bo.protocolo + '</div>';
+      html += '<div style="font-size:12px;color:#666;margin-top:2px;">' + bo.tipo + ' - ' + bo.local + '</div>';
+      html += '<div style="font-size:11px;color:#999;margin-top:4px;">' + new Date(bo.dataRegistro).toLocaleString('pt-BR') + '</div>';
+      html += '</div>';
+      html += '<div style="text-align:right;font-size:11px;">';
+      html += '<span style="background:#4caf50;color:white;padding:4px 8px;border-radius:4px;font-weight:600;">' + bo.status + '</span>';
+      html += '</div>';
+      html += '</div>';
+      html += '</div>';
+    });
+    html += '</div>';
+    lista.innerHTML = html;
+  }
+
+  // Filtrar boletins
+  function filtrarBoletins() {
+    const filtro = document.getElementById('filtro-boletim').value.toLowerCase();
+    const boletins = JSON.parse(localStorage.getItem('prf_boletins') || '[]');
+    const lista = document.getElementById('boletins-lista');
+
+    const filtrados = boletins.filter(bo => 
+      bo.protocolo.toLowerCase().includes(filtro) || 
+      bo.local.toLowerCase().includes(filtro)
+    );
+
+    if (filtrados.length === 0) {
+      lista.innerHTML = '<p style="text-align:center;color:#999;padding:20px;">Nenhum boletim encontrado com esse filtro.</p>';
+      return;
+    }
+
+    let html = '<div style="display:grid;gap:8px;">';
+    filtrados.forEach((bo) => {
+      const boIndex = boletins.indexOf(bo);
+      html += '<div style="background:#f8f9fa;padding:12px;border-radius:6px;border-left:4px solid #003580;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background=\'#e8f0f8\'" onmouseout="this.style.background=\'#f8f9fa\'" onclick="exibirBoletim(' + boIndex + ')">';
+      html += '<div style="display:flex;justify-content:space-between;align-items:center;">';
+      html += '<div>';
+      html += '<div style="font-weight:600;color:#003580;font-size:13px;">' + bo.protocolo + '</div>';
+      html += '<div style="font-size:12px;color:#666;margin-top:2px;">' + bo.tipo + ' - ' + bo.local + '</div>';
+      html += '<div style="font-size:11px;color:#999;margin-top:4px;">' + new Date(bo.dataRegistro).toLocaleString('pt-BR') + '</div>';
+      html += '</div>';
+      html += '<div style="text-align:right;font-size:11px;">';
+      html += '<span style="background:#4caf50;color:white;padding:4px 8px;border-radius:4px;font-weight:600;">' + bo.status + '</span>';
+      html += '</div>';
+      html += '</div>';
+      html += '</div>';
+    });
+    html += '</div>';
+    lista.innerHTML = html;
+  }
+
+  // Exibir boletim completo
+  function exibirBoletim(idx) {
+    const boletins = JSON.parse(localStorage.getItem('prf_boletins') || '[]');
+    const boletim = boletins[idx];
+    
+    if (!boletim) return;
+    
+    gerarBoletim(boletim, true);
+  }
+
+  // Inicializar lista de boletins quando entrar na área restrita
+  function carregarBoletinsAoEntrar() {
+    setTimeout(() => {
+      if (document.getElementById('boletins-lista')) {
+        recarregarBoletins();
+      }
+    }, 100);
+  }
+
+  // FAQ toggle
+  function toggleFaq(el) {
+    const item = el.parentElement;
+    item.classList.toggle('open');
+  }
+
+  // Links externos simulados
+  function openOrg() { showToast('🏛️ Redirecionando para Órgãos do Governo...'); }
+  function openAcesso() { showPage('acesso-info'); }
+  function openLeg() { showPage('legislacao'); }
+  function openLink(url) { window.open(url, '_blank'); }
+  function toggleContrast() { showToast('♿ Alto contraste ativado/desativado'); }
+  function changeFont(d) { 
+    const s = parseFloat(getComputedStyle(document.body).fontSize) + d;
+    document.body.style.fontSize = Math.max(12, Math.min(20, s)) + 'px';
+  }
+  function openVLibras() { showToast('🤟 VLibras iniciando...'); }
+
+  // ===== SLIDER DE NOTÍCIAS =====
+  let currentNews = 0;
+  const newsSlides = document.querySelectorAll('.news-slide');
+  const newsDots = document.querySelectorAll('.dot');
+
+  function updateNews() {
+    newsSlides.forEach((slide, index) => {
+      slide.classList.toggle('active', index === currentNews);
+    });
+    newsDots.forEach((dot, index) => {
+      dot.classList.toggle('active', index === currentNews);
+    });
+  }
+
+  function nextNews() {
+    currentNews = (currentNews + 1) % newsSlides.length;
+    updateNews();
+  }
+
+  function prevNews() {
+    currentNews = (currentNews - 1 + newsSlides.length) % newsSlides.length;
+    updateNews();
+  }
+
+  function goToNews(index) {
+    currentNews = index;
+    updateNews();
+  }
+
+  // Auto-play do slider (opcional - a cada 5 segundos)
+  setInterval(nextNews, 5000);
+
+  // Inicializar slider
+  updateNews();
+
+  // ===== ÁREA RESTRITA =====
+  function showRestrictedArea() {
+    document.getElementById('home-page').style.display = 'none';
+    document.querySelectorAll('.subpage').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-restricted').classList.add('active');
+    document.getElementById('breadcrumb-text').innerHTML =
+      '<a href="#">gov.br</a> <span>›</span> <a href="#" onclick="showHome()">PRF</a> <span>›</span> Área Restrita';
+    window.scrollTo({top: 0, behavior: 'smooth'});
+    carregarBoletinsAoEntrar();
+  }
+
+  function logout() {
+    document.getElementById('page-restricted').classList.remove('active');
+    showHome();
+    showToast('👋 Logout realizado com sucesso.');
+  }
+
+  function aplicarMulta() {
+    const placa = document.getElementById('placa-input').value;
+    const infracao = document.getElementById('infracao-select').value;
+    const obs = document.getElementById('obs-input').value;
+
+    if (!placa) {
+      showToast('⚠️ Por favor, informe a placa do veículo.');
+      return;
+    }
+
+    showToast(`🚫 Multa aplicada! Placa: ${placa} - Infração: ${infracao}`);
+    document.getElementById('placa-input').value = '';
+    document.getElementById('obs-input').value = '';
+  }
+
+  function liberarVeiculo(placa) {
+    showToast(`✅ Veículo ${placa} liberado com sucesso!`);
+    // Aqui seria feita uma requisição para liberar o veículo
+  }
+
+  function enviarMensagem() {
+    const mensagem = document.getElementById('chat-input').value;
+    if (!mensagem.trim()) return;
+
+    const chatMessages = document.querySelector('.chat-messages');
+    const newMessage = document.createElement('div');
+    newMessage.className = 'message';
+    newMessage.innerHTML = `<strong>Você:</strong> ${mensagem}`;
+    chatMessages.appendChild(newMessage);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    document.getElementById('chat-input').value = '';
+
+    // Simular resposta automática
+    setTimeout(() => {
+      const resposta = document.createElement('div');
+      resposta.className = 'message';
+      resposta.innerHTML = `<strong>Sistema PRF:</strong> Mensagem recebida. Todos os agentes foram notificados.`;
+      chatMessages.appendChild(resposta);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }, 1000);
+  }
+
+  function verRelatorio(id) {
+    const relatorios = {
+      1: 'Relatório de Operação - Blitz Marginal: 15 veículos abordados, 8 multas aplicadas, 2 veículos apreendidos.',
+      2: 'Relatório Semanal - Semana 15: Total de 156 multas aplicadas, 23 veículos apreendidos, 12 operações realizadas.',
+      3: 'Relatório de Multas - Abril 2024: R$ 45.230,00 arrecadados em multas, média de 89 multas por dia.'
+    };
+    showToast(`📋 ${relatorios[id]}`);
+  }
+
+  function atualizarMapa() {
+    showToast('🗺️ Mapa atualizado! Posições dos agentes sincronizadas.');
+  }
+</script>
+</body>
+</html>
